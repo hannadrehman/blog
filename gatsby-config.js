@@ -28,18 +28,12 @@ module.exports = {
       options: {
         navigation: [
           {
-            title: `About`,
-            slug: `/about`,
-          },
-          {
             title: `Blog`,
             slug: `/blog`,
           },
-        ],
-        externalLinks: [
           {
-            name: `Twitter`,
-            url: `https://twitter.com/hannad_rehman`,
+            title: `About`,
+            slug: `/about`,
           },
         ],
       },
@@ -146,6 +140,29 @@ module.exports = {
         siteSpeedSampleRate: 10,
         cookieDomain: "hannadrehman.com",
         enableWebVitalsTracking: true,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-prettier-eslint",
+      options: {
+        prettier: {
+          patterns: [
+            // the pattern "**/*.{js,jsx,ts,tsx}" is not used because we will rely on `eslint --fix`
+            "**/*.{css,scss,less}",
+            "**/*.{json,json5}",
+            "**/*.{graphql}",
+            "**/*.{md,mdx}",
+            "**/*.{html}",
+            "**/*.{yaml,yml}",
+          ],
+        },
+        eslint: {
+          patterns: "**/*.{js,jsx,ts,tsx}",
+          customOptions: {
+            fix: true,
+            cache: true,
+          },
+        },
       },
     },
     `gatsby-plugin-gatsby-cloud`,
