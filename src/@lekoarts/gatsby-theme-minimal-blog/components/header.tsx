@@ -19,7 +19,7 @@ function Header(): any {
   const { navigation: nav, basePath } = useMinimalBlogConfig();
   const [colorMode, setColorMode] = useColorMode();
   const isDark = colorMode === `dark`;
-  const logoImage = isDark ? "/logo-white.svg" : "/logo-black.svg";
+
   function toggleColorMode(e: any) {
     e.preventDefault();
     setColorMode(isDark ? `light` : `dark`);
@@ -40,13 +40,18 @@ function Header(): any {
             as={AsLink}
             aria-label={`HannadRehman - Back to home`}
           >
-            <img src={logoImage} alt="logo" />
+            <img src="/logo.svg" alt="logo" />
           </TLink>
         </div>
         <Flex>
           {nav.map((item: NavigationProps) => (
             <TLink
-              sx={{ mx: [2] }}
+              sx={{
+                mx: [2],
+                fontWeight: "bold",
+                textDecoration: "none",
+                color: isDark ? "white" : "primary-color",
+              }}
               key={item.slug}
               as={AsLink}
               to={replaceSlashes(`/${basePath}/${item.slug}`)}
