@@ -31,25 +31,25 @@ const Footer = () => {
         }}
       >
         <Link href="https://twitter.com/hannad_rehman" target="_blank">
-          <img src="/twitter.png" width="24px" />
+          <img src="/icons/twitter.png" width="24px" />
         </Link>
         <Link href="https://www.linkedin.com/in/hannad-rehman/" target="_blank">
-          <img src="/linkedin.png" width="24px" />
+          <img src="/icons/linkedin.png" width="24px" />
         </Link>
         <Link href="https://github.com/hannadrehman" target="_blank">
-          <img src="/github.png" width="24px" />
+          <img src="/icons/github.png" width="24px" />
         </Link>
         <Link
           href="https://discordapp.com/users/705906985798729760/"
           target="_blank"
         >
-          <img src="/discord.png" width="24px" />
+          <img src="/icons/discord.png" width="24px" />
         </Link>
         <Link
           href="https://stackoverflow.com/users/4214329/hannad-rehman"
           target="_blank"
         >
-          <img src="/stack-overflow.png" width="24px" />
+          <img src="/icons/stack-overflow.png" width="24px" />
         </Link>
       </div>
     </footer>
