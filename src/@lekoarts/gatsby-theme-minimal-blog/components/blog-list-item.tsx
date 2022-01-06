@@ -23,36 +23,60 @@ type BlogListItemProps = {
 function BlogListItem({ post }: BlogListItemProps) {
   return (
     <Box
-      mb={4}
+      mb={3}
       sx={{
-        boxShadow: "0px 3px 6px #00000033",
+        border: "1px solid var(--theme-ui-colors-gray-3)",
         p: [2, 3],
-        borderRadius: "8px",
+        borderRadius: "4px",
+        width: ["100%", "100%", "100%", "49%"],
       }}
     >
       <TLink
         as={Link}
         to={post.slug}
-        sx={{ fontSize: [1, 2, 3], color: `text` }}
-      >
-        {post.title}
-      </TLink>
-      <p
         sx={{
-          color: `secondary`,
-          mt: 1,
-          a: { color: `secondary` },
-          fontSize: [1, 1, 2],
+          "&:hover": {
+            p: { color: "var(--primary-color)" },
+            textDecoration: "none",
+          },
         }}
       >
-        <time>{post.date}</time>
-        {post.tags && (
-          <React.Fragment>
-            {` — `}
-            <ItemTags tags={post.tags} />
-          </React.Fragment>
-        )}
-      </p>
+        <p
+          sx={{
+            fontSize: [1, 2, 3],
+            color: `text`,
+            fontWeight: 700,
+            marginTop: "0px",
+            marginBottom: "8px",
+          }}
+        >
+          {post.title}
+        </p>
+        <div
+          sx={{
+            margin: 0,
+            color: `text`,
+            a: { color: `text` },
+            fontWeight: 500,
+            fontSize: 1,
+          }}
+        >
+          {post.tags && <ItemTags tags={post.tags} />}
+        </div>
+        <text
+          sx={{
+            color: `text`,
+            mt: 1,
+            a: { color: `text` },
+            fontWeight: 400,
+            fontSize: 1,
+            lineHeight: 1.5,
+          }}
+        >
+          {post.description}
+        </text>
+        <p sx={{ color: `text`, fontWeight: 700 }}>Read more</p>
+      </TLink>
     </Box>
   );
 }

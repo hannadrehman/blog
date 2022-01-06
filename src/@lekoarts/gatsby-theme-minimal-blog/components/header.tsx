@@ -26,43 +26,62 @@ function Header(): any {
   }
 
   return (
-    <header sx={{ mb: [5, 6] }}>
-      <Flex
+    <nav
+      sx={{
+        px: [4],
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        width: "100%",
+        backgroundColor: "var(--theme-ui-colors-background)",
+        zIndex: 2,
+        maxWidth: "1024px",
+        margin: "0 auto",
+      }}
+    >
+      <header
         sx={{
-          alignItems: `center`,
-          justifyContent: `space-between`,
-          flexDirection: ["column", "row"],
+          mb: [3, 0, 0, 0],
         }}
       >
-        <div>
-          <TLink
-            to={replaceSlashes(`/${basePath}`)}
-            as={AsLink}
-            aria-label={`HannadRehman - Back to home`}
-          >
-            <img src="/logo.svg" alt="logo" />
-          </TLink>
-        </div>
-        <Flex>
-          {nav.map((item: NavigationProps) => (
+        <Flex
+          sx={{
+            alignItems: `center`,
+            justifyContent: `space-between`,
+            flexDirection: ["column", "row"],
+          }}
+        >
+          <div>
             <TLink
-              sx={{
-                mx: [2],
-                fontWeight: "bold",
-                textDecoration: "none",
-                color: isDark ? "white" : "primary-color",
-              }}
-              key={item.slug}
+              to={replaceSlashes(`/${basePath}`)}
               as={AsLink}
-              to={replaceSlashes(`/${basePath}/${item.slug}`)}
+              aria-label={`HannadRehman - Back to home`}
             >
-              {item.title}
+              <img src="/logo.svg" alt="logo" />
             </TLink>
-          ))}
-          <ColorModeToggle isDark={isDark} toggle={toggleColorMode} />
+          </div>
+          <Flex>
+            {nav.map((item: NavigationProps) => (
+              <TLink
+                sx={{
+                  mx: [2],
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                  color: isDark ? "white" : "primary-color",
+                }}
+                key={item.slug}
+                as={AsLink}
+                to={replaceSlashes(`/${basePath}/${item.slug}`)}
+              >
+                {item.title}
+              </TLink>
+            ))}
+            <ColorModeToggle isDark={isDark} toggle={toggleColorMode} />
+          </Flex>
         </Flex>
-      </Flex>
-    </header>
+      </header>
+    </nav>
   );
 }
 
