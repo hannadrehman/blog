@@ -43,6 +43,7 @@ function Header(): any {
       <header
         sx={{
           mb: [3, 0, 0, 0],
+          py: 1,
         }}
       >
         <Flex
@@ -58,7 +59,7 @@ function Header(): any {
               as={AsLink}
               aria-label={`HannadRehman - Back to home`}
             >
-              <img src="/logo.svg" alt="logo" />
+              <img width="100%" src="/logo.svg" alt="logo" />
             </TLink>
           </div>
           <Flex>
