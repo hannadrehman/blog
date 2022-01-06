@@ -17,7 +17,6 @@ type NavigationProps = {
 
 function Header(): any {
   const { navigation: nav, basePath } = useMinimalBlogConfig();
-  console.log(nav);
   const [colorMode, setColorMode] = useColorMode();
   const isDark = colorMode === `dark`;
   const logoImage = isDark ? "/logo-white.svg" : "/logo-black.svg";
