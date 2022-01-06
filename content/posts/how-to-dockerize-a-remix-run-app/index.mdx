@@ -1,0 +1,113 @@
+---
+title: How to Dockerize a remix run app
+
+date: 2022-01-06
+description: Dockerizing remix app is crucial for production environments. it takes away the burden on setting up an environment. docker containers are predictable, consistent and isolated environments which run anywhere.
+tags:
+  - Docker
+  - React
+  - Remix run
+banner: /react-cover.jpg
+---
+
+![cover](/react-cover.jpg)
+
+##### Introduction
+
+[Remix](https://remix.run) is a React server and browser runtime which provides out of the box server side rendering, snappy page loads and instant transitions with near-zero configuration.
+
+
+In this blog post, we will showcase how to Dockerize a Remix application
+
+
+##### Requirements
+
+-Working [Docker](https://docs.docker.com/engine/installation/) installation installation
+
+-Working [Remix](https://remix.run) installation
+
+-Basic understanding of how a Node.js application is structured.
+
+
+
+##### The Dockerfile
+
+To Dockerize your remix app you need to create a `Dockerfile` in the root of you app
+A `Dockerfile` is a simple text file that consists of instructions to build Docker images
+In a simple docker file we would
+-1. Install dependencies
+-2. Build our application
+-3. Setup environment variables
+-4. Setup start command which will run the application
+
+
+Create an empty file called Dockerfile:
+```sh
+touch dockerfile
+```
+
+ Add following instructions
+
+```
+FROM node:16-alpine
+WORKDIR /usr/server/app
+
+COPY ./package.json ./
+RUN npm install
+COPY ./ .
+RUN npm run build # will build remix app
+CMD ["npm", “run” ,"start"] # will start remix app
+
+```
+
+
+##### Building your image
+Go to the directory that has your Dockerfile and run the following command to build the Docker image.
+```sh
+docker build -f./Dockerfile . -t remix/run
+```
+The -t flag lets you tag your image so it's easier to find later using the docker images command:
+
+Your image will be list by docker now
+
+```sh
+ docker images
+```
+
+```sh
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+remix/run    latest    86dae0f4dff9   3 minutes ago   470MB
+
+```
+
+
+##### Run the image
+```sh
+docker run -p 3000:3000 -d remix/run
+```
+Running your image with -d runs the container in detached mode, leaving the container running in the background. The -p flag redirects a public port to a private port inside the container.
+
+Go to localhost:3000 and your application should be running
+
+
+##### View Running Containers
+```sh
+docker ps
+```
+
+```sh
+CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+4d039e503335   remix/run   "docker-entrypoint.s…"   20 seconds ago   Up 19 seconds   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   nostalgic_booth
+
+```
+If you want to see logs of your application run
+
+```sh
+docker logs <container-id>
+```
+
+If you want to go inside your container
+
+```sh
+docker exec -it <container id> /bin/bash
+```
