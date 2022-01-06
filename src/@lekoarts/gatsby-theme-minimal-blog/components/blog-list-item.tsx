@@ -21,7 +21,6 @@ type BlogListItemProps = {
 };
 
 function BlogListItem({ post }: BlogListItemProps) {
-  console.log(Box);
   return (
     <Box
       mb={4}
