@@ -1,8 +1,8 @@
 ---
-title: How to Dockerize a Remix  app
+title: How to Dockerize a Remix App
 
 date: 2022-01-06
-description: Dockerizing remix app is crucial for production environments as it takes away the burden on setting up a runtime environment for ur app. docker containers are predictable, consistent and isolated in nature which makes it possible for them to run anywhere.
+description: Dockerizing remix apps is crucial for production environments as it takes away the burden of setting up a runtime environment for your app. Docker containers are predictable, consistent, and isolated in nature which makes it possible for them to run anywhere.
 tags:
   - Docker
   - React
@@ -16,30 +16,31 @@ banner: /react-cover.jpg
 
 ##### Introduction
 
-[Remix](https://remix.run) is a React server and browser runtime which provides out of the box server side rendering, snappy page loads and instant transitions with near-zero configuration.
+[Remix](https://remix.run) is a React server and browser runtime that provides out of the box server side rendering, snappy page loads, and instant transitions with near-zero configuration.
 
 
-In this blog post, we will showcase how to Dockerize a Remix application
+In this blog post, we will demonstrate how to Dockerize Remix applications.
 
 
 ##### Requirements
 
-- Working [Docker](https://docs.docker.com/engine/installation/) installation installation
-- Working [Remix](https://remix.run) installation
+- Working [Docker](https://docs.docker.com/engine/installation/) installation.
+- Working [Remix](https://remix.run) installation.
 - Basic understanding of how a Node.js application is structured.
 
 
 
 ##### The Dockerfile
 
-To Dockerize your remix app you need to create a `Dockerfile` in the root of you app
-A `Dockerfile` is a simple text file that consists of instructions to build Docker images
-In a simple docker file we would
+In order to dockerize your remix app, you need to create a `dockerfile` at the root of your application.
+Dockerfiles are simple text files containing instructions on how to create Docker images.
 
-- Install dependencies
-- Build our application
-- Setup environment variables
-- Setup start command which will run the application
+In a simple docker file we would:
+
+- Install dependencies.
+- Build our application.
+- Setup environment variables.
+- Setup the start command that will run the application.
 
 
 Create an empty file called Dockerfile:
@@ -47,52 +48,53 @@ Create an empty file called Dockerfile:
 touch dockerfile
 ```
 
-The first thing we need to do is define from what image we want to build from.
-Here we will use the `16-alpine` version of node available from the [Docker Hub](https://hub.docker.com/_/node):
+Let's start by defining what image we want to build from.
+Here, we will use the `16-alpine` version of `NodeJS` that can be found on the [Docker Hub](https://hub.docker.com/_/node)
 
 ```
 FROM node:16-alpine
 ```
 
-Now we need to create a directory for the application code inside the docker image.
-this will be the working directory for your application:
+We will now create a directory for the application code inside the Docker image.
+This will be the working directory for your application
+
 ```
 //directory
 WORKDIR /usr/server/app
 
 ```
+Since `NodeJS` and `npm` are pre-installed in this image, the next step is to install the `remix` app's dependencies.
 
-In this image `Nodejs` and `npm` will be pre installed. so the next thing to do is install all dependencies of your remix app
 ```
 COPY ./package.json ./
 RUN npm install
 
 ```
-Note that we are only copying `package.json` instead of copying entire source code.
-this helps in taking advantage of docker layer caching . a good explanation of this is can be found [here](https://docs.semaphoreci.com/ci-cd-environment/docker-layer-caching/)
+Note that we are only copying the `package.json` instead of copying the entire source code.
+This enables you to take advantage of Docker layer caching. A good explanation of this can be found [here](https://docs.semaphoreci.com/ci-cd-environment/docker-layer-caching/).
 
-Next step would be to copy entire source code.
+The next step would be to copy the entire source code.
 ```
 COPY ./ .
 
 ```
 
-At this point our source code and dependencies are all set in our docker image. next we need to build our remix app and set some environment variables
+At this point, our source code and dependencies are all set in our Docker image.
+The next step is to build the remix app and set some environment variables.
 ```
 RUN npm run build # will build remix app
 ENV NODE_ENV=production
 
 ```
 
-Finally we define the command to run our remix app using `CMD`
+Finally, we define the command to run our remix app using `CMD`.
 
 ```
 CMD ["npm", “run” ,"start"]
 
 ```
 
-
-To sum it all here is what our `dockerfile` looks like
+In summary, this is what our `dockerfile` looks like.
 ```
 FROM node:16-alpine
 WORKDIR /usr/server/app
@@ -102,20 +104,20 @@ RUN npm install
 COPY ./ .
 RUN npm run build
 ENV NODE_ENV=production
-CMD ["npm", “run” ,"start"] # will start remix app when we run this docker image
+CMD ["npm", “run” ,"start"] # will launch the remix app when we run this Docker image.
 
 ```
 
 ##### .dockerignore file
 Create a `.dockerignore` file in the same directory as your `Dockerfile`.
-add following content:
+Add following content:
 
 ```
 node_modules
 npm-debug.log
 
 ```
-This prevents your local modules and debug logs from being copied onto your Docker image
+This prevents your local modules and debug logs from being copied onto your Docker image.
 
 
 ##### Building your image
@@ -126,7 +128,7 @@ docker build -f./Dockerfile . -t remix/run
 ```
 The `-t` flag lets us tag our image so that it's easier to find in our list of docker images.
 
-Your image will be listed by docker now
+Your image will be listed by Docker now.
 
 ```sh
  docker images
@@ -145,14 +147,14 @@ remix/run    latest    86dae0f4dff9   3 minutes ago   470MB
 ```sh
 docker run -p 3000:3000 -d remix/run
 ```
-Running your image with `-d` runs the container in detached mode, the container is now running in the background.
-The `-p` flag redirects a public port (host os port) to a private port inside the container.
+When you run your image with `-d`, the container runs in detached mode. It now runs in the background
+The `-p` flag redirects a public port (host's port) to a private port inside the container.
 
-Go to `http://localhost:3000` and your application should be running
+Go to `http://localhost:3000` and your application should be running.
 
 
 ##### View Running Containers
-if you want to see all running docker containers you can run `ps` command.
+If you wish to see all running Docker containers, you can run `ps` command.
 ```sh
 docker ps
 ```
@@ -164,17 +166,17 @@ CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS     
 
 ```
 
-If you want to see logs of your application run
+If you wish to see the logs of your application.
 
 ```sh
 docker logs <container-id>
 ```
 
-If you want to go inside your container
+If you want to go inside your container.
 
 ```sh
 docker exec -it <container id> /bin/bash
 ```
 
 
-I hope this blog post helped you in Dockerizing your `remix` application. feel free to give feedback [here](https://twitter.com/hannad_rehman)
+I hope this blog post helped you with Dockerizing your `remix` application. Feel free to give feedback [here](https://twitter.com/hannad_rehman).
