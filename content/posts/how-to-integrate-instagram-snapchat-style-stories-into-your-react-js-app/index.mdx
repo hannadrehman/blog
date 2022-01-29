@@ -1,0 +1,108 @@
+---
+title: How to integrate Instagram/Snapchat style stories into your ReactJs application
+
+date: 2022-01-29
+description: Stories style material has become the most popular way of consuming media on social media. Most prominent platforms, such as Facebook, Instagram, Snapchat, and Youtube, offer stories. As a result, it is only natural that everyone uses the same format of media consumption.
+tags:
+  - React
+  - Tutorials
+banner:  https://images.pexels.com/photos/1092671/pexels-photo-1092671.jpeg?auto=compress
+---
+
+<img alt="Lisa Fotios" src="https://images.pexels.com/photos/1092671/pexels-photo-1092671.jpeg?auto=compress" width="100%" />
+
+
+##### Introduction
+Snapchat Stories, which debuted in October 2013, was a new way of sharing our lives with the rest of the world.
+Users may post their photographs in a narrative manner that others could watch as many times as they wanted for up to 24 hours.
+Although we are all familiar with the notion now, this was a breakthrough moment in the history of social media.
+Social media users grew more raw, real, and relatable as a result of this real-time documentary format.
+Other social networks picked up on the Stories concept a few years later.
+Today's social media platforms, such as Facebook, Instagram, Snapchat, Youtube, and Whatsapp, all have stories built in, therefore it's only natural that your online application does as well.
+
+#### Introducing React Stories component.
+[React Stories](https://github.com/hannadrehman/stories-react) is a light weight (3kb) gzipped component which implements Instagram/Snapchat like stories
+
+
+#### Setting up the project
+We will use [create react app](https://create-react-app.dev/) in this project
+
+```shell
+npx create-react-app my-app
+cd my-app
+
+```
+
+
+#### Install stories-react npm package
+
+```shell
+npm install stories-react —save
+```
+
+
+#### Start your react project
+
+```shell
+npm start
+```
+
+
+#### Create Stories component
+
+```jsx
+import React from 'react';
+import Stories from 'stories-react';
+import 'stories-react/dist/index.css';
+
+export default function ImagesStories() {
+ const stories = [
+   {
+     type: 'image',
+     url: 'https://images.pexels.com/photos/9470805/pexels-photo-9470805.jpeg?w=300',
+     duration: 5000,
+   },
+   {
+     type: 'image',
+     duration: 6000,
+     url: 'https://images.pexels.com/photos/9733197/pexels-photo-9733197.jpeg?w=300',
+   },
+   {
+     duration: 7000,
+     type: 'image',
+     url: 'https://images.pexels.com/photos/9470805/pexels-photo-9470805.jpeg?w=300',
+   },
+ ];
+
+ return (
+     <Stories
+       width="400px"
+       height="600px"
+       stories={stories}
+     />
+ );
+}
+
+```
+<iframe src="https://codesandbox.io/embed/react-stories-b6yos?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:800px; border:0; border-radius: 4px; overflow:hidden;margin-top:48px"
+     title="react-stories"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
+
+That is all there is to it. Now your project has Stories embedded in it.
+
+
+This package's whole API can be found [here](https://hannadrehman.github.io/stories-react/).
+
+
+#### Conclusion
+
+I Hope this blog helped you in implementing stories in your web project.
+
+You can see the official documentation of the React Stories package [here](https://hannadrehman.github.io/stories-react/).
+
+If there are any issues regarding this project you can report them [here](https://github.com/hannadrehman/stories-react/issues).
+
+For any feedback for this post, feel free to give it [here](https://twitter.com/hannad_rehman)
+
