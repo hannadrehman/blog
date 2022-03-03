@@ -38,15 +38,15 @@ It should be noted that a monorepo is not a monolith. A monolith is huge amount 
 
 1. __Visibility:__ The entire code is visible to everyone. This enables cross team collaboration.
 
-4.__Code reuse:__ The same repository houses common modules, shared libraries, and helper utilities as local packages. These local packages are simple to maintain. we don't need to publish them to private npm repositories, all applications are always running the most recent version of these local packages.
+1. __Code reuse:__ The same repository houses common modules, shared libraries, and helper utilities as local packages. These local packages are simple to maintain. we don't need to publish them to private npm repositories, all the applications are always running the most recent version of these local packages.
 
-5. __Adding a new project/application:__ It becomes extremely easy to add a new project to the repository since all the dependencies, utilities, CI/CD, Git, and test runners are already included.
+1. __Adding a new project/application:__ It becomes extremely easy to add a new project to the repository since all the dependencies, utilities, CI/CD, Git, and test runners are already included.
 
-6. __Breaking changes are easy to tackle:__ Breaking changes in shared packages/dependencies are communicated immediately.
+1. __Breaking changes are easy to tackle:__ Breaking changes in shared packages/dependencies are communicated immediately.
 .
-7. __Unified CI/CD:__ For each application, You can use the same CI/CD and deployment process.
+1. __Unified CI/CD:__ For each application, You can use the same CI/CD and deployment process.
 
-8. __Unified build process:__ We can have a single build process to build all the applications, thus increasing the consistency of the final builds.
+1. __Unified build process:__ We can have a single build process to build all the applications, thus increasing the consistency of the final builds.
 
 ##### Cons of monorepo
 1. __Poor git performance:__ When monorepo reaches tens of thousands of files, and extremely huge number of commits git performance gets impacted.
