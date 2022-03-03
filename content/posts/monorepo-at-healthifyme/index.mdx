@@ -19,41 +19,37 @@ banner:  https://images.pexels.com/photos/1092671/pexels-photo-1092671.jpeg?auto
 ##### Introduction
 What is a monorepo ?
 
-A monorepo is a code repository that holds multiple projects or applications.
-These projects can be related to each other or completely independent.
-It also allows us to share code among these projects without using some kind of package manager and directly importing it from your repository.
-It should be noted that a monolith is not a monorepo. A monolith is huge amount of coupled code of a single application in a single repository that is hell to maintain
+A monorepo is a code repository that holds multiple applications.
+These applications can be related or completely independent.
+It also allows us to share code among these application without using any kind of package manager.
+It should be noted that a monorepo is not a monolith. A monolith is huge amount of coupled code of a single application in a single repository.
 
 
 <img alt="compare" src="./compare.jpeg" width="100%" />
 
 
 
-##### Pros of  monorepo:
-1. __Consistent dependency management:__ code is shared in a monorepo, so are our dependencies, That means all your projects will have the same versions of the libraries they need. There are no versioning conflicts or dependency hell.
+##### Pros of a monorepo:
+1. __One source of truth:__ Instead of having multiple repositories  we have a single repository with all the code and configurations to manage it.
 
-1. __Consistent coding practices:__ enforcing code quality standards and a unified style is easier when you have all your code in one place. For example, having a single configuration for all dev tools. For example code linters, code formatters, testing configuration etc,
+1. __Consistent dependency management:__ code is shared in a monorepo, so are our dependencies, That means all your application will have the same versions of the libraries they need. There are no versioning conflicts or dependency hell.
+
+1. __Consistent coding practices:__ enforcing code quality standards and a unified style is easier when you have all your code in one place. For example, having a single configuration for all dev tools like code linters, code formatters, testing configuration etc,
 
 1. __Visibility:__ the entire code is visible to everyone. This enables cross team collaboration.
 
-4. __Code reuse:__ common modules, shared libraries, and helper utilities are all stored in the same repository, so teams can share them among many projects and services. All the boilerplate code can be extracted out, so developers can focus on business logic rather than the structure and design of shared utilities.
+4. __Code reuse:__ common modules, shared libraries, and helper utilities are all in the same repository, teams can use them in any application. All the boilerplate code can be extracted out, so developers can focus on business logic rather than the structure and design of shared utilities.
 
-5. __Adding a new project/application:__ it becomes extremely easy to add a new project to the repository since all the dependencies, utilities, CI/CD, Git, and test runners are already included in the repository.
+5. __Adding a new project/application:__ it becomes extremely easy to add a new project to the repository since all the dependencies, utilities, CI/CD, Git, and test runners are already included.
 
-6. __Breaking changes are easy to tackle:__ breaking changes in shared packages/dependencies are communicated immediately.  – need to add more here
+6. __Breaking changes are easy to tackle:__ breaking changes in shared packages/dependencies are communicated immediately.
 .
-7. __Unified CI/CD:__ For each project, you can use the same CI/CD deployment process.
+7. __Unified CI/CD:__ For each application, you can use the same CI/CD and deployment process.
 
-8. __Speed of execution:__ since most of the reusable code is already present in the repository, developers have to focus only on the business logic of their feature.
-
-9. __Enforces Unit/Integration Testing:__  reusable packages are shared among all the projects. It has become extremely important to have tests for your packages. As a result, developers are compelled to conduct standard unit and integration testing.
-
-10. __Unified build process:__ we can have a single build process to build all the projects and applications, thus increasing the consistency of the final builds.
-
-11. __One source of truth:__ Instead of having a lot of repositories with their own configs, we can have a single configuration to manage all the projects, making it e
+8. __Unified build process:__ we can have a single build process to build all the applications, thus increasing the consistency of the final builds.
 
 ##### Cons of monorepo
-1. __Bad performance:__ when monorepo reaches tens of thousands of files, navigating in code and editor performance gets impacted.
+1. __Poor Git performance:__ when monorepo reaches tens of thousands of files, and extremely huge number of commits git performance gets impacted.
 
 1. __Broken master:__  if for some reason, your master/main branch is broken, all the projects might be impacted.
 
@@ -65,40 +61,37 @@ It should be noted that a monolith is not a monorepo. A monolith is huge amount 
 
 1. __Testing:__ This isn't actually a disadvantage. However, you must ensure that your reusable packages are thoroughly tested and that automated testing is in place.
 
-1. __Unable to restrict access:__ Every member who has access to the repo will have access to view all the applications. There’s no way to restrict some applications, which is irrelevant to the developer.
+1. __Unable to restrict access:__ Every member who has access to the repository will have access to all the applications. There’s no way to restrict some applications, which is irrelevant to the developer.
 
 ##### Why was multirepo a problem for Healthifyme web team?
-Our web team builds a wide range of applications, including internal projects, client-facing applications, webviews for our native applications, marketing pages, and other web experiments etc. Majority of these applications are built with modern frontend frameworks/libraries such as ReactJs.
-Building multiple applications with modern dev tools comes with its own set of problems:
+Our web team builds a wide range of applications, including internal projects, client-facing applications, webviews for our native applications, marketing pages, and other web experiments etc. Most of these applications are built with modern frontend frameworks/libraries such as ReactJs.
 
-* Each web application has requirements and dependencies.
-  * Common utilities (Authentication, Authorization, http, storage, logging, error handling, image managers, cdn, etc)
-  * Reusable UI components (Consistent Ui Library).
-  * Dependency management (yarn, npm)
-  * Testing (Jest, React testing library, msw, etc)
-  * Transpilation (Babel)
-  * Builder/Bundler (Webpack)
-  * Code linter (Eslint)
-  * Code formatter (Prettier)
-  * BFF (NodeJs with Express).
-  * Server side utilities (Authentication, RPC's, etc).
-  * Scripts (common scripts to run above mentioned tools)
-  * Dockerization
-  * CI/CD
-  * Deployment
+Building multiple applications with modern dev tools comes with its own set of requirements:
+
+* Common utilities (Authentication, Authorization, http, storage, logging, error handling, image managers, cdn, etc)
+* Reusable UI components (Consistent Ui Library).
+* Dependency management (yarn, npm)
+* Testing (Jest, React testing library, msw, etc)
+* Transpilation (Babel)
+* Builder/Bundler (Webpack)
+* Code linter (Eslint)
+* Code formatter (Prettier)
+* BFF (NodeJs with Express).
+* Server side utilities (Authentication, RPC's, etc).
+* Scripts (common scripts to run above mentioned tools)
+* Dockerization
+* CI/CD
+* Deployment
 * Maintaining reusable npm packages, updating them and making sure all applications
 are on the latest versions.
-* Alot of repetitive boilerplate code
-* Dependency management
-* BFF for each application
-* CI/CD for each application
+* Repetitive boilerplate code
 
-It is evident from the preceding statements that managing a large number of applications in a fast-paced startup is difficult. It's a tedious job. In addition, each project contains a lot of boilerplate code. With monorepo, we could entirely eliminate all development dependencies and concentrate just on the application and business logic.
+It is evident from the preceding statements that managing a large number of applications in a fast-paced startup is a repetitive and a tedious job. In addition, each project contains a lot of boilerplate code. With monorepo, we could entirely eliminate all development dependencies and concentrate just on the application and business logic.
 
 ##### Enter Healthifyme Athena
 Roughly in February 2019, we started an ambitious web project called Athena. Which amimed
-to solve all the above problems by creating a unified codebase for future Web projects.
-Back in 2019, the only tool that could manage workspaces was lerna and yarn workspaces Here is the original post by Yarn about workspaces.
+to solve all the above problems by creating a unified codebase for future web projects.
+Back in 2019, the only tool that could manage workspaces was [Lerna](https://github.com/lerna/lerna) and yarn [Workspaces](https://classic.yarnpkg.com/lang/en/docs/cli/workspaces/)
 
 We started our monorepo with Lerna because it had all of the capabilities we needed. For approximately two years, everything was well, however lerna had some active maintenance concerns. We opted to step away from the project because there was no active development going on. Currently, our repository uses Yarn workspaces, which allows us to embrace any new tool in the future without requiring a larger migration strategy.
 
@@ -108,14 +101,14 @@ We started our monorepo with Lerna because it had all of the capabilities we nee
 * 70+ Ui Components
 * 100+ Global Icons
 * Nodejs + express applications
-* NextJs applications.  replace next with remix whenever requried
-* Remix-Run application.  replace next with remix whenever requried
+* Remix-Run application.
 * Common React hooks
 * Global Constants
 * Chrome/Firefox extensions
 * Common Utilities
 * Test Utilities
 * Style Utilities
+* Server Utilities
 * Configurations
   * Babel
   * Eslint
@@ -125,6 +118,9 @@ We started our monorepo with Lerna because it had all of the capabilities we nee
   * Webpack
   * Prettier
   * Storybook
+  * Github
+  * Docker
+  * CI/CD
 * Development scripts
 * Unified Build & test configuration
 
@@ -157,3 +153,13 @@ Some of the tools worth considering are :
 Monorepo design is simply another approach to application development. It may not be the best way to build or design applications for your specific use case, but it has greatly simplified the lives of our developers. If you find yourself in a situation where you need to build multiple applications, you should definitely consider monorepos.
 
 
+
+
+##### Also read
+
+
+[How to integrate Instagram/Snapchat style stories into your ReactJs application](/how-to-integrate-instagram-snapchat-style-stories-into-your-react-js-application)
+
+[How to Dockerize a Remix App](/how-to-dockerize-a-remix-app)
+
+[Top Neovim plugins for developers in 2022](/top-neovim-plugins-for-developers-in-2022)
